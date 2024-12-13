@@ -1,4 +1,5 @@
 import pygame
+from lib.Bullet import Bullet
 from lib.Player import Player
 
 # Initialize components and constants
@@ -15,6 +16,7 @@ BG = (60, 56, 54)
 player = Player((WIDHT // 2, HEIGHT // 2))
 playerGroup = pygame.sprite.Group()
 playerGroup.add(player)
+bulletGroup = pygame.sprite.Group()
 
 # Main Loop
 running = True
@@ -29,6 +31,9 @@ while running:
     screen.fill(BG)
     playerGroup.update(mousePos)
     playerGroup.draw(screen)
+
+    bulletGroup.update()
+    bulletGroup.draw(screen)
 
     pygame.display.flip()
     clock.tick(FPS)
