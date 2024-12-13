@@ -12,7 +12,7 @@ FPS = 60
 BG = (60, 56, 54)
 
 # Player initialization
-player = Player()
+player = Player((WIDHT // 2, HEIGHT // 2))
 playerGroup = pygame.sprite.Group()
 playerGroup.add(player)
 
@@ -20,12 +20,14 @@ playerGroup.add(player)
 running = True
 while running:
     # Event/Input loop
+    mouseX, mouseY = pygame.mouse.get_pos()
+    mousePos = (mouseX, mouseY)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    screen.fill(BG)    
-    playerGroup.update()
+    screen.fill(BG)
+    playerGroup.update(mousePos)
     playerGroup.draw(screen)
 
     pygame.display.flip()
