@@ -13,14 +13,18 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = pos
 
-        self.BSpeed = 10
+        self.BSpeed = 5
+        self.BReload = 120  # Number of frames
+        self.BReloadCur = 0
 
         # Imported
         self.mpos = (0, 0)
         self.BGroup = bulletGroup
 
     def shoot(self):
-        self.BGroup.add(Bullet(self.rect.center, self.mpos, self.BSpeed))
+        if self.BReloadCur <= 0:
+            self.BGroup.add(Bullet(self.rect.center, self.mpos, self.BSpeed))
+            self.BReloadCur = self.BReload
 
     def rotate(self):
         dx = self.mpos[0] - self.rect.centerx
@@ -34,6 +38,9 @@ class Player(pygame.sprite.Sprite):
         UPDATE variables and state of the player
 
         mpos - mouse position, it's better to keep it in `self` than for every function to need it as argument
+        BReloadCur - current state of reload counter. Measured in frames
         """
         self.mpos = mpos
+        if self.BReloadCur > 0:
+            self.BReloadCur -= 1
         self.rotate()
