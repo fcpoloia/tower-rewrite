@@ -1,6 +1,7 @@
 import json
 import sys
 import pygame
+from lib.HUD import ProgressBar
 from lib.Player import Player
 
 # Initialize components and constants
@@ -17,6 +18,14 @@ BG = (60, 56, 54)
 bulletGroup = pygame.sprite.Group()
 player = Player((WIDHT // 2, HEIGHT // 2), bulletGroup)
 playerGroup = pygame.sprite.Group()
+RealoadBar = ProgressBar(
+    screen,
+    (WIDHT // 2 - 50, HEIGHT // 2 + 10),
+    (100, 20),
+    (255, 255, 255),
+    (0, 0, 0),
+    player.BReload,
+)
 playerGroup.add(player)
 
 
@@ -55,6 +64,9 @@ while running:
             action()
 
     screen.fill(BG)
+
+    RealoadBar.draw(player.BReload - player.BReloadCur)
+
     playerGroup.update(mousePos)
     playerGroup.draw(screen)
 
