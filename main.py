@@ -1,6 +1,7 @@
 import json
 import sys
 import pygame
+from lib import Enemies
 from lib.HUD import ProgressBar
 from lib.Player import Player
 import constants
@@ -26,6 +27,7 @@ RealoadBar = ProgressBar(
     player.BReload,
 )
 playerGroup.add(player)
+enemyGroup = pygame.sprite.Group()
 
 
 # Load options files
@@ -62,6 +64,12 @@ while running:
             action = configKeyMap.get(event.key, default)
             action()
 
+    enemiesShot = pygame.sprite.groupcollide(enemyGroup, bulletGroup, False, True)
+    if enemiesShot:
+        for e in enemiesShot:
+            for b in enemiesShot[e]:
+                print("SHOT")
+
     screen.fill(BG)
 
     RealoadBar.draw(player.BReload - player.BReloadCur)
@@ -71,6 +79,9 @@ while running:
 
     bulletGroup.update()
     bulletGroup.draw(screen)
+
+    enemyGroup.update()
+    enemyGroup.draw(screen)
 
     pygame.display.flip()
     clock.tick(FPS)
