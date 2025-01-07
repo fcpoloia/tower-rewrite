@@ -16,7 +16,7 @@ BG = (60, 56, 54)
 
 # Player initialization
 bulletGroup = pygame.sprite.Group()
-player = Player(constants.center, bulletGroup)
+player = Player(constants.center, bulletGroup, constants.PBaseDamage)
 playerGroup = pygame.sprite.Group()
 RealoadBar = ProgressBar(
     screen,
@@ -65,10 +65,12 @@ while running:
             action()
 
     enemiesShot = pygame.sprite.groupcollide(enemyGroup, bulletGroup, False, True)
-    if enemiesShot:
-        for e in enemiesShot:
-            for b in enemiesShot[e]:
-                print("SHOT")
+    for e in enemiesShot:
+        for b in enemiesShot[e]:
+            e.HP -= b.DMG
+            print(e.HP)
+            if e.HP <= 0:
+                enemyGroup.remove(e)
 
     screen.fill(BG)
 

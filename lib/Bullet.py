@@ -4,7 +4,11 @@ import math
 
 class Bullet(pygame.sprite.Sprite):
     def __init__(
-        self, pos: tuple[int, int], mpos: tuple[int, int], speed: float
+        self,
+        pos: tuple[int, int],
+        mpos: tuple[int, int],
+        speed: float,
+        damage: int,
     ) -> None:
         super().__init__()
         self.image_original = pygame.image.load("img/BulletImage.png")
@@ -15,6 +19,7 @@ class Bullet(pygame.sprite.Sprite):
         self.CenterVector = pygame.math.Vector2(self.rect.center)
 
         self.SPEED = speed
+        self.DMG = damage
 
         # Rotate
         dx = mpos[0] - self.rect.centerx
