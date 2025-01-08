@@ -70,6 +70,17 @@ def loadInputMap(path):
 
 configKeyMap = loadInputMap("options/keymaps.json")
 
+
+# Add this function after the sprite group declarations
+def isOffScreen(sprite):
+    return (
+        sprite.rect.right < 0
+        or sprite.rect.left > constants.WIDTH
+        or sprite.rect.bottom < 0
+        or sprite.rect.top > constants.HEIGHT
+    )
+
+
 # Main Loop
 running = True
 while running:
@@ -87,9 +98,18 @@ while running:
     for e in enemiesShot:
         for b in enemiesShot[e]:
             e.HP -= b.DMG
-            print(e.HP)
             if e.HP <= 0:
-                enemyGroup.remove(e)
+                e.kill()
+
+    # Remove off-screen bullets
+    for bullet in bulletGroup:
+        if isOffScreen(bullet):
+            bullet.kill()
+
+    # Remove off-screen enemies
+    for enemy in enemyGroup:
+        if isOffScreen(enemy):
+            enemy.kill()
 
     screen.fill(BG)
 
