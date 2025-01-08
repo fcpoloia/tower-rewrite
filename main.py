@@ -1,5 +1,5 @@
 import json
-import sys
+from threading import Timer
 import pygame
 from lib import Enemies
 from lib.HUD import ProgressBar
@@ -30,9 +30,28 @@ playerGroup.add(player)
 enemyGroup = pygame.sprite.Group()
 
 
+def SpawnEnemies():
+    global enemyGroup
+    global enemySpawTimer
+    enemy = Enemies.Dummy("img/PlayerImage.png", 2, 5)
+    enemyGroup.add(enemy)
+    enemySpawTimer = Timer(constants.SpawnIntervalSec, SpawnEnemies)
+    enemySpawTimer.start()
+
+
+enemySpawTimer = Timer(constants.SpawnIntervalSec, SpawnEnemies)
+enemySpawTimer.start()
+
+
 # Load options files
 def default():
     print("Key not bound")
+
+
+def quit():
+    global running
+    enemySpawTimer.cancel()
+    running = False
 
 
 def loadInputMap(path):
@@ -42,7 +61,7 @@ def loadInputMap(path):
     K_Map = {}
     F_Map = {
         "shoot": player.shoot,
-        "quit": sys.exit,
+        "quit": quit,
     }
     for key, action in raw_file.items():
         K_Map[getattr(pygame, key)] = F_Map.get(action, default)
@@ -89,4 +108,5 @@ while running:
     clock.tick(FPS)
 
 # Exit
+enemySpawTimer.cancel()
 pygame.quit()
