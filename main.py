@@ -8,7 +8,7 @@ import constants
 
 # Initialize components and constants
 pygame.init()
-screen = pygame.display.set_mode((constants.WIDHT, constants.HEIGHT))
+screen = pygame.display.set_mode((constants.WIDTH, constants.HEIGHT))
 pygame.display.set_caption("Tower")
 clock = pygame.time.Clock()
 FPS = 60
@@ -20,7 +20,7 @@ player = Player(constants.center, bulletGroup, constants.PBaseDamage)
 playerGroup = pygame.sprite.Group()
 RealoadBar = ProgressBar(
     screen,
-    (constants.WIDHT // 2 - 50, constants.HEIGHT // 2 + 10),
+    (constants.WIDTH // 2 - 50, constants.HEIGHT // 2 + 10),
     (100, 20),
     (255, 255, 255),
     (0, 0, 0),
