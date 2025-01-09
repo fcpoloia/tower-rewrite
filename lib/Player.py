@@ -10,6 +10,7 @@ class Player(pygame.sprite.Sprite):
         pos: tuple[int, int],
         bulletGroup: pygame.sprite.Group,
         damage: int,
+        health: int,
     ) -> None:
         super().__init__()
         self.image_original = pygame.image.load("img/PlayerImage.png")
@@ -22,6 +23,9 @@ class Player(pygame.sprite.Sprite):
         self.BReload = 120  # Number of frames
         self.BReloadCur = 0
         self.BDamage = damage
+
+        self.PHealth = health
+        self.PHealthMax = health
 
         # Imported
         self.mpos = (0, 0)
