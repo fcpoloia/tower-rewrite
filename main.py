@@ -26,6 +26,14 @@ RealoadBar = ProgressBar(
     (0, 0, 0),
     player.BReload,
 )
+HPBar = ProgressBar(
+    screen,
+    (constants.WIDTH // 2 - 50, constants.HEIGHT // 2 + 30),
+    (100, 20),
+    (0, 0, 0),
+    (0, 255, 0),
+    player.PHealthMax,
+)
 playerGroup.add(player)
 enemyGroup = pygame.sprite.Group()
 
@@ -120,6 +128,7 @@ while running:
     screen.fill(BG)
 
     RealoadBar.draw(player.BReload - player.BReloadCur)
+    HPBar.draw(player.PHealth)
 
     playerGroup.update(mousePos)
     playerGroup.draw(screen)
