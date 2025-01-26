@@ -8,7 +8,6 @@ import constants
 
 # Initialize components and constants
 pygame.init()
-screen = pygame.display.set_mode((constants.WIDTH, constants.HEIGHT))
 pygame.display.set_caption("Tower")
 clock = pygame.time.Clock()
 FPS = 60
@@ -19,7 +18,7 @@ bulletGroup = pygame.sprite.Group()
 player = Player(constants.center, bulletGroup, constants.PBaseDamage, 100)
 playerGroup = pygame.sprite.Group()
 RealoadBar = ProgressBar(
-    screen,
+    constants.screen,
     (constants.WIDTH // 2 - 50, constants.HEIGHT // 2 + 10),
     (100, 20),
     (255, 255, 255),
@@ -27,7 +26,7 @@ RealoadBar = ProgressBar(
     player.BReload,
 )
 HPBar = ProgressBar(
-    screen,
+    constants.screen,
     (constants.WIDTH // 2 - 50, constants.HEIGHT // 2 + 30),
     (100, 20),
     (0, 0, 0),
@@ -125,19 +124,19 @@ while running:
         if isOffScreen(enemy):
             enemy.kill()
 
-    screen.fill(BG)
+    constants.screen.fill(BG)
 
     RealoadBar.draw(player.BReload - player.BReloadCur)
     HPBar.draw(player.PHealth)
 
     playerGroup.update(mousePos)
-    playerGroup.draw(screen)
+    playerGroup.draw(constants.screen)
 
     bulletGroup.update()
-    bulletGroup.draw(screen)
+    bulletGroup.draw(constants.screen)
 
     enemyGroup.update()
-    enemyGroup.draw(screen)
+    enemyGroup.draw(constants.screen)
 
     pygame.display.flip()
     clock.tick(FPS)
