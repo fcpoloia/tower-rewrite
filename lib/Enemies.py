@@ -1,5 +1,6 @@
 import pygame
 import constants
+import lib.HUD as HUD
 
 
 class Dummy(pygame.sprite.Sprite):
@@ -22,6 +23,14 @@ class Dummy(pygame.sprite.Sprite):
 
         self.image = pygame.image.load(path)
         self.rect = self.image.get_rect()
+        self.HPBar = HUD.ProgressBar(
+            constants.screen,
+            (self.rect.x, self.rect.bottom + 20),
+            (self.rect.width, 10),
+            (0, 0, 0),
+            (255, 0, 0),
+            health,
+        )
         self.SPEED = speed
         self.HP = health
 
@@ -34,3 +43,5 @@ class Dummy(pygame.sprite.Sprite):
         self.PosVector += self.dirVector * self.SPEED
         self.rect.centerx = round(self.PosVector.x)
         self.rect.centery = round(self.PosVector.y)
+        self.HPBar.POSITION = (self.rect.x, self.rect.bottom + 20)
+        self.HPBar.draw(self.HP)

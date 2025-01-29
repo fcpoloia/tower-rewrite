@@ -37,6 +37,12 @@ class ProgressBar:
     def update(self, val: int):
         self.val = val
         self.progressWidth = (self.val / self.maxVal) * self.DIMENSIONS[0]
+        self.bgRect = (
+            self.POSITION[0],
+            self.POSITION[1],
+            self.DIMENSIONS[0],
+            self.DIMENSIONS[1],
+        )
         self.fgRect = (
             self.POSITION[0],
             self.POSITION[1],
