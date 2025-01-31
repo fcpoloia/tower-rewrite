@@ -5,6 +5,7 @@ from lib import Enemies
 from lib.HUD import ProgressBar
 from lib.Player import Player
 import constants
+import random
 
 # Initialize components and constants
 pygame.init()
@@ -40,7 +41,19 @@ enemyGroup = pygame.sprite.Group()
 def SpawnEnemies():
     global enemyGroup
     global enemySpawTimer
-    enemy = Enemies.Dummy("img/PlayerImage.png", 2, 5)
+    initPos = (0, 0)
+    side = random.choice(constants.sides)
+    if side == "horizontal":
+        initPos = (
+            random.choice([0, constants.WIDTH]),
+            random.randint(0, constants.HEIGHT),
+        )
+    else:
+        initPos = (
+            random.randint(0, constants.WIDTH),
+            random.choice([0, constants.HEIGHT]),
+        )
+    enemy = Enemies.Dummy("img/PlayerImage.png", 2, 5, initPos)
     enemyGroup.add(enemy)
     enemySpawTimer = Timer(constants.SpawnIntervalSec, SpawnEnemies)
     enemySpawTimer.start()

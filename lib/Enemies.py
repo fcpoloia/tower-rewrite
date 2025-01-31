@@ -11,6 +11,7 @@ class Dummy(pygame.sprite.Sprite):
     path - A path to sprite's image
     speed - number of pixel that a sprite will travel in one frame
     health - self explenatory
+    initPos - a tuple with x and y coordinates of the sprite's initial position
     """
 
     def __init__(
@@ -18,11 +19,13 @@ class Dummy(pygame.sprite.Sprite):
         path: str,
         speed: int,
         health: int,
+        initPos: tuple[int, int],
     ) -> None:
         super().__init__()
 
         self.image = pygame.image.load(path)
         self.rect = self.image.get_rect()
+        self.rect.center = initPos
         self.HPBar = HUD.ProgressBar(
             constants.screen,
             (self.rect.x, self.rect.bottom + 20),
