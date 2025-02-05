@@ -1,5 +1,6 @@
 import pygame
 import math
+import constants
 
 from lib.Bullet import Bullet
 
@@ -13,11 +14,16 @@ class Player(pygame.sprite.Sprite):
         health: int,
     ) -> None:
         super().__init__()
-        self.image_original = pygame.image.load("img/PlayerImage.png")
-        self.image_original = pygame.transform.scale(self.image_original, (50, 50))
-        self.image = self.image_original
-        self.rect = self.image.get_rect()
+        self.image_base = pygame.image.load("img/PlayerBase.png")
+        self.image_base = pygame.transform.scale(self.image_base, (80, 80))
+        self.image_turret_original = pygame.image.load("img/PlayerImage.png")
+        self.image_turret_original = pygame.transform.scale(
+            self.image_turret_original, (50, 50)
+        )
+        self.image_turret = self.image_turret_original
+        self.rect = self.image_base.get_rect()
         self.rect.center = pos
+        self.original_pos = self.rect.topleft
 
         self.BSpeed = 5
         self.BReload = 120  # Number of frames
@@ -42,8 +48,10 @@ class Player(pygame.sprite.Sprite):
         dx = self.mpos[0] - self.rect.centerx
         dy = self.mpos[1] - self.rect.centery
         angle = math.degrees(math.atan2(-dy, dx))
-        self.image = pygame.transform.rotate(self.image_original, (angle - 90))
-        self.rect = self.image.get_rect(center=self.rect.center)
+        self.image_turret = pygame.transform.rotate(
+            self.image_turret_original, (angle - 90)
+        )
+        self.rect = self.image_turret.get_rect(center=self.rect.center)
 
     def update(self, mpos: tuple) -> None:
         """
@@ -56,3 +64,8 @@ class Player(pygame.sprite.Sprite):
         if self.BReloadCur > 0:
             self.BReloadCur -= 1
         self.rotate()
+        self.draw(constants.screen)
+
+    def draw(self, surface: pygame.Surface) -> None:
+        surface.blit(self.image_base, self.original_pos)
+        surface.blit(self.image_turret, self.rect.topleft)

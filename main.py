@@ -143,7 +143,6 @@ while running:
     HPBar.draw(player.PHealth)
 
     playerGroup.update(mousePos)
-    playerGroup.draw(constants.screen)
 
     bulletGroup.update()
     bulletGroup.draw(constants.screen)
