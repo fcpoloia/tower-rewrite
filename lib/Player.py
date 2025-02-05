@@ -18,7 +18,7 @@ class Player(pygame.sprite.Sprite):
         self.image_base = pygame.transform.scale(self.image_base, (80, 80))
         self.image_turret_original = pygame.image.load("img/PlayerImage.png")
         self.image_turret_original = pygame.transform.scale(
-            self.image_turret_original, (50, 50)
+            self.image_turret_original, (150, 150)
         )
         self.image_turret = self.image_turret_original
         self.rect = self.image_base.get_rect()
@@ -49,7 +49,7 @@ class Player(pygame.sprite.Sprite):
         dy = self.mpos[1] - self.rect.centery
         angle = math.degrees(math.atan2(-dy, dx))
         self.image_turret = pygame.transform.rotate(
-            self.image_turret_original, (angle - 90)
+            self.image_turret_original, (angle - 180)
         )
         self.rect = self.image_turret.get_rect(center=self.rect.center)
 
