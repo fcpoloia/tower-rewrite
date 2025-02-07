@@ -53,7 +53,7 @@ def SpawnEnemies():
             random.randint(0, constants.WIDTH),
             random.choice([0, constants.HEIGHT]),
         )
-    enemy = Enemies.Dummy("img/PlayerImage.png", 2, 5, initPos)
+    enemy = Enemies.Fodder(initPos)
     enemyGroup.add(enemy)
     enemySpawTimer = Timer(constants.SpawnIntervalSec, SpawnEnemies)
     enemySpawTimer.start()

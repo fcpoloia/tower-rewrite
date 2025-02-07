@@ -12,6 +12,7 @@ class Dummy(pygame.sprite.Sprite):
     speed - number of pixel that a sprite will travel in one frame
     health - self explenatory
     initPos - a tuple with x and y coordinates of the sprite's initial position
+    dims - a tuple with width and height of the sprite
     """
 
     def __init__(
@@ -20,10 +21,12 @@ class Dummy(pygame.sprite.Sprite):
         speed: int,
         health: int,
         initPos: tuple[int, int],
+        dims: tuple[int, int],
     ) -> None:
         super().__init__()
 
         self.image = pygame.image.load(path)
+        self.image = pygame.transform.scale(self.image, dims)
         self.rect = self.image.get_rect()
         self.rect.center = initPos
         self.HPBar = HUD.ProgressBar(
@@ -48,3 +51,14 @@ class Dummy(pygame.sprite.Sprite):
         self.rect.centery = round(self.PosVector.y)
         self.HPBar.POSITION = (self.rect.x, self.rect.bottom + 20)
         self.HPBar.draw(self.HP)
+
+
+class Fodder(Dummy):
+    def __init__(self, initPos: tuple[int, int]) -> None:
+        super().__init__(
+            "img/Fodder.png",
+            1,
+            1,
+            initPos,
+            (50, 50),
+        )

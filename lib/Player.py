@@ -18,7 +18,7 @@ class Player(pygame.sprite.Sprite):
         self.image_base = pygame.transform.scale(self.image_base, (80, 80))
         self.image_turret_original = pygame.image.load("img/PlayerImage.png")
         self.image_turret_original = pygame.transform.scale(
-            self.image_turret_original, (150, 150)
+            self.image_turret_original, (100, 100)
         )
         self.image_turret = self.image_turret_original
         self.rect = self.image_base.get_rect()
