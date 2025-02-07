@@ -20,7 +20,7 @@ player = Player(constants.center, bulletGroup, constants.PBaseDamage, 100)
 playerGroup = pygame.sprite.Group()
 RealoadBar = ProgressBar(
     constants.screen,
-    (constants.WIDTH // 2 - 50, constants.HEIGHT // 2 + 10),
+    (constants.WIDTH // 2 - 50, constants.HEIGHT // 2 + 40),
     (100, 20),
     (255, 255, 255),
     (0, 0, 0),
@@ -28,7 +28,7 @@ RealoadBar = ProgressBar(
 )
 HPBar = ProgressBar(
     constants.screen,
-    (constants.WIDTH // 2 - 50, constants.HEIGHT // 2 + 30),
+    (constants.WIDTH // 2 - 50, constants.HEIGHT // 2 + 60),
     (100, 20),
     (0, 0, 0),
     (0, 255, 0),
