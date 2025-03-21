@@ -1,4 +1,5 @@
 import pygame
+from typing import Callable
 
 
 class ProgressBar:
@@ -64,3 +65,11 @@ class ProgressBar:
             self.fg,
             self.fgRect,
         )
+
+
+class Button(pygame.sprite.Sprite):
+    def __init__(self, path: str, action: Callable) -> None:
+        super().__init__()
+        self.image = pygame.image.load(path)
+        self.rect = self.image.get_rect()
+        self.action = action

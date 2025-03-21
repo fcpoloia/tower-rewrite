@@ -2,7 +2,7 @@ import json
 from threading import Timer
 import pygame
 from lib import Enemies
-from lib.HUD import ProgressBar
+from lib.HUD import ProgressBar, Button
 from lib.Player import Player
 import constants
 import random
@@ -101,19 +101,27 @@ def isOffScreen(sprite):
     )
 
 
-# Main Loop
-running = True
-while running:
-    # Event/Input loop
-    mouseX, mouseY = pygame.mouse.get_pos()
-    mousePos = (mouseX, mouseY)
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        elif event.type == pygame.KEYDOWN:
-            action = configKeyMap.get(event.key, default)
-            action()
+# Main Menu HUD
+def switchState():
+    global state
+    state = "game"
 
+
+PlayButton = Button("img/PlayButton.png", switchState)
+
+
+# Game States
+def menu():
+    global mousePos
+    global mouseDown
+    constants.screen.fill(BG)
+    # Draw menu here
+    constants.screen.blit(PlayButton.image, PlayButton.rect)
+    if PlayButton.rect.collidepoint(mousePos) and mouseDown:
+        PlayButton.action()
+
+
+def game():
     # Collision detection
     enemiesShot = pygame.sprite.groupcollide(enemyGroup, bulletGroup, False, True)
     for e in enemiesShot:
@@ -149,6 +157,33 @@ while running:
 
     enemyGroup.update()
     enemyGroup.draw(constants.screen)
+
+
+StateMap = {
+    "menu": menu,
+    "game": game,
+}
+
+mousePos = (0, 0)
+mouseDown = False
+# Main Loop
+running = True
+state = "menu"
+while running:
+    # Event/Input loop
+    mouseX, mouseY = pygame.mouse.get_pos()
+    mousePos = (mouseX, mouseY)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        elif event.type == pygame.KEYDOWN:
+            action = configKeyMap.get(event.key, default)
+            action()
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:
+                mouseDown = True
+
+    StateMap[state]()
 
     pygame.display.flip()
     clock.tick(FPS)
