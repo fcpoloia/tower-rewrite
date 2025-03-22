@@ -109,6 +109,10 @@ def switchStateGame():
 
 
 PlayButton = Button("img/PlayButton.png", switchStateGame, (50, 50), (300, 150))
+QuitButton = Button("img/QuitButton.png", quit, (50, 210), (300, 150))
+buttons = pygame.sprite.Group()
+buttons.add(PlayButton)
+buttons.add(QuitButton)
 
 
 # Game States
@@ -118,8 +122,10 @@ def menu():
     constants.screen.fill(BG)
     # Draw menu here
     constants.screen.blit(PlayButton.image, PlayButton.rect)
-    if PlayButton.rect.collidepoint(mousePos) and mouseDown:
-        PlayButton.action()
+    constants.screen.blit(QuitButton.image, QuitButton.rect)
+    for button in buttons:
+        if button.rect.collidepoint(mousePos) and mouseDown:
+            button.action()
 
 
 def game():
