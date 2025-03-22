@@ -68,8 +68,16 @@ class ProgressBar:
 
 
 class Button(pygame.sprite.Sprite):
-    def __init__(self, path: str, action: Callable) -> None:
+    def __init__(
+        self,
+        path: str,
+        action: Callable,
+        pos: tuple[int, int],
+        dims: tuple[int, int],
+    ) -> None:
         super().__init__()
         self.image = pygame.image.load(path)
+        self.image = pygame.transform.scale(self.image, dims)
         self.rect = self.image.get_rect()
+        self.rect.topleft = pos
         self.action = action

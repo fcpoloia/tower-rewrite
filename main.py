@@ -102,12 +102,12 @@ def isOffScreen(sprite):
 
 
 # Main Menu HUD
-def switchState():
+def switchStateGame():
     global state
     state = "game"
 
 
-PlayButton = Button("img/PlayButton.png", switchState)
+PlayButton = Button("img/PlayButton.png", switchStateGame, (50, 50), (300, 150))
 
 
 # Game States
