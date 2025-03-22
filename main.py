@@ -60,7 +60,6 @@ def SpawnEnemies():
 
 
 enemySpawTimer = Timer(constants.SpawnIntervalSec, SpawnEnemies)
-enemySpawTimer.start()
 
 
 # Load options files
@@ -104,6 +103,8 @@ def isOffScreen(sprite):
 # Main Menu HUD
 def switchStateGame():
     global state
+    global enemySpawTimer
+    enemySpawTimer.start()
     state = "game"
 
 
